@@ -59,17 +59,17 @@ public class Withdrawal extends JFrame implements ActionListener {
 
         b1 = new JButton("WITHDRAW");
         b1.setBounds(417,407,150,25);
-        b1.setBackground(new Color(50, 194, 10));
-        b1.setForeground(new Color(37, 11, 11));
-        b1.setFont(new Font("AOE", Font.BOLD,16));
+        b1.setBackground(new Color(27, 214, 12, 255));
+        b1.setForeground(Color.BLACK);
+        b1.setFont(new Font("AOE", Font.BOLD,14));
         b1.addActionListener(this);
         l3.add(b1);
 
-        b2 = new JButton("BACK");
+        b2 = new JButton("CANCEL");
         b2.setBounds(417,436,150,24);
-        b2.setBackground(new Color(218, 7, 9));
-        b2.setForeground(new Color(32, 31, 31));
-        b2.setFont(new Font("AOE", Font.BOLD,16));
+        b2.setBackground(new Color(246, 22, 10));
+        b2.setForeground(Color.BLACK);
+        b2.setFont(new Font("AOE", Font.BOLD,14));
         b2.addActionListener(this);
         l3.add(b2);
 

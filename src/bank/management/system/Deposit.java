@@ -55,17 +55,17 @@ public class Deposit extends JFrame implements ActionListener {
 
         deposit = new JButton("DEPOSIT");
         deposit.setBounds(558,404,150,25);
-        deposit.setBackground(new Color(50, 194, 10));
-        deposit.setForeground(new Color(37, 11, 11));
-        deposit.setFont(new Font("AOE", Font.BOLD,16));
+        deposit.setBackground(new Color(27, 214, 12, 255));
+        deposit.setForeground(Color.BLACK);
+        deposit.setFont(new Font("AOE", Font.BOLD,14));
         deposit.addActionListener(this);
         atmImage.add(deposit);
 
         cancel = new JButton("CANCEL");
         cancel.setBounds(558,432,150,24);
-        cancel.setBackground(new Color(218, 7, 9));
-        cancel.setForeground(new Color(32, 31, 31));
-        cancel.setFont(new Font("AOE", Font.BOLD,16));
+        cancel.setBackground(new Color(246, 22, 10));
+        cancel.setForeground(Color.BLACK);
+        cancel.setFont(new Font("AOE", Font.BOLD,14));
         cancel.addActionListener(this);
         atmImage.add(cancel);
 
