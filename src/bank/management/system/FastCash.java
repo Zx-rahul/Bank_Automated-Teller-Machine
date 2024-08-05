@@ -10,10 +10,12 @@ import java.util.Date;
 public class FastCash extends JFrame implements ActionListener {
 
     JButton b1,b2,b3,b4,b5,b6,b7;
-    String pin;
+    String pin,cardNo;
     int size;
-    FastCash(String pin){
+    FastCash(String pin,String cardNo){
         super("Automated teller machine");
+
+        this.cardNo=cardNo;
         this.pin =pin;
 
         ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icon/atm.png"));
@@ -97,14 +99,14 @@ public class FastCash extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==b7) {
             setVisible(false);
-            new main_Class(pin);
+            new main_Class(cardNo,pin);
         }else {
             size=((JButton)e.getSource()).getText().length();
             String amount = ((JButton)e.getSource()).getText().substring(2,size);
             Connect connect = new Connect();
             Date date = new Date();
             try{
-                ResultSet resultSet = connect.statement.executeQuery("select * from bank where pin = '"+pin+"'");
+                ResultSet resultSet = connect.statement.executeQuery("select * from bank where card_number = '"+cardNo+"'");
                 int balance =0;
                 while (resultSet.next()){
                     if (resultSet.getString("deposit_withdrawal").equals("Withdrawal")){
@@ -119,20 +121,20 @@ public class FastCash extends JFrame implements ActionListener {
                     return;
                 }
 
-                connect.statement.executeUpdate("insert into bank values('"+pin+"', '"+date+"','Withdrawal', '"+amount+
+                connect.statement.executeUpdate("insert into bank values('"+cardNo+"', '"+date+"','Withdrawal', '"+amount+
                         "', 'Dr')");
                 JOptionPane.showMessageDialog(null, "Rs. "+amount+" Debited Successfully");
             }catch (Exception E){
                 E.printStackTrace();
             }
             setVisible(false);
-            new main_Class(pin);
+            new main_Class(cardNo,pin);
         }
 
 
     }
 
     public static void main(String[] args) {
-        new FastCash("");
+        new FastCash("","");
     }
 }

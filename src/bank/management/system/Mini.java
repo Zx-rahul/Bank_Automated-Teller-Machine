@@ -7,10 +7,11 @@ import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 
 public class Mini extends JFrame implements ActionListener {
-    String pin;
+    String pin,cardNo;
     JButton button;
-    Mini(String pin){
+    Mini(String cardNo,String pin){
         super("Automated teller machine");
+        this.cardNo=cardNo;
         this.pin = pin;
         getContentPane().setBackground(new Color(235, 87, 41));//255,204,204
         setSize(400,600);
@@ -36,7 +37,7 @@ public class Mini extends JFrame implements ActionListener {
 
         try{
             Connect connect = new Connect();
-            ResultSet resultSet = connect.statement.executeQuery("select * from login where pin = '"+pin+"'");
+            ResultSet resultSet = connect.statement.executeQuery("select * from login where card_number = '"+cardNo+"'");
             while (resultSet.next()){
                 label3.setText("Card Number:  "+ resultSet.getString("card_number").substring(0,4) + "XXXXXXXX"+ resultSet.getString("card_number").substring(12));
             }
@@ -47,7 +48,7 @@ public class Mini extends JFrame implements ActionListener {
         try{
             int balance =0;
             Connect connect2 = new Connect();
-            ResultSet resultSet = connect2.statement.executeQuery("select * from bank where pin = '"+pin+"'");
+            ResultSet resultSet = connect2.statement.executeQuery("select * from bank where card_number = '"+cardNo+"'");
             StringBuilder transactionHistory = new StringBuilder("<html>");  // Use StringBuilder for efficiency
 
             while (resultSet.next()) {
@@ -105,6 +106,6 @@ public class Mini extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        new Mini("");
+        new Mini("","");
     }
 }

@@ -7,8 +7,8 @@ import java.awt.event.ActionListener;
 
 public class main_Class extends JFrame implements ActionListener {
     JButton deposit, cashOut, fastCash, miniState, pinChange, balanceEnquiry, exit;
-    String pin;
-    main_Class(String pin){
+    String cardNo,pin;
+    main_Class(String cardNo,String pin){
         super("Automated teller machine");
 
 
@@ -18,7 +18,8 @@ public class main_Class extends JFrame implements ActionListener {
         int g=controller.getGreen();
         int b=controller.getBlue();
 
-        this.pin = pin;
+        this.pin=pin;
+        this.cardNo = cardNo;
 
         ImageIcon image1 = new ImageIcon(ClassLoader.getSystemResource("icon/atm.png"));
         Image image2 = image1.getImage().getScaledInstance(900,692,Image.SCALE_DEFAULT);
@@ -100,28 +101,28 @@ public class main_Class extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()== deposit){
-            new Deposit(pin);
+            new Deposit(cardNo,pin);
             setVisible(false);
         }else if (e.getSource()== exit){
             System.exit(0);
         } else if (e.getSource()== cashOut) {
-            new Withdrawal(pin);
+            new Withdrawal(cardNo,pin);
             setVisible(false);
         } else if (e.getSource()== balanceEnquiry) {
-            new BalanceEnquiry(pin);
+            new BalanceEnquiry(cardNo,pin);
             setVisible(false);
         } else if (e.getSource()== fastCash) {
-            new FastCash(pin);
+            new FastCash(cardNo,pin);
             setVisible(false);
         } else if (e.getSource()== pinChange) {
-            new Pin(pin);
+            new Pin(pin,cardNo);
             setVisible(false);
         } else if (e.getSource()== miniState) {
-            new Mini(pin);
+            new Mini(cardNo,pin);
         }
     }
 
     public static void main(String[] args) {
-        new main_Class("");
+        new main_Class("","");
     }
 }

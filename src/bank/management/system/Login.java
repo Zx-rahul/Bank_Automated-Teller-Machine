@@ -124,7 +124,7 @@ public class Login extends JFrame implements ActionListener {
                 ResultSet resultSet = connect.statement.executeQuery(query);
                 if (resultSet.next()) {
                     setVisible(false);
-                    new main_Class(pin);
+                    new main_Class(cardNo,pin);
                 }else {
                     JOptionPane.showMessageDialog(null, "Enter the correct credentials.", "Invalid Input",
                             JOptionPane.ERROR_MESSAGE);

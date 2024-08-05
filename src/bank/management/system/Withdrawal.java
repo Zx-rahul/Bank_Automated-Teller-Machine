@@ -9,11 +9,11 @@ import java.util.Date;
 
 public class Withdrawal extends JFrame implements ActionListener {
 
-    String pin;
+    String pin,cardNo;
     TextField textField;
 
     JButton b1, b2;
-    Withdrawal(String pin){
+    Withdrawal(String cardNo,String pin){
 
         super("Automated teller machine");
         Color controller;//background controller
@@ -22,8 +22,9 @@ public class Withdrawal extends JFrame implements ActionListener {
         int g=controller.getGreen();
         int b=controller.getBlue();
 
-
+        this.cardNo=cardNo;
         this.pin=pin;
+
         ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icon/atm.png"));
         Image i2 = i1.getImage().getScaledInstance(900,692,Image.SCALE_DEFAULT);
         ImageIcon i3 = new ImageIcon(i2);
@@ -90,7 +91,8 @@ public class Withdrawal extends JFrame implements ActionListener {
                             "Input",JOptionPane.ERROR_MESSAGE);
                 } else {
                     Connect connect = new Connect();
-                    ResultSet resultSet = connect.statement.executeQuery("select * from bank where pin = '" + pin + "'");
+                    ResultSet resultSet =
+                            connect.statement.executeQuery("select * from bank where card_number = '" + cardNo + "'");
                     int balance = 0;
                     while (resultSet.next()) {
                         if (resultSet.getString("deposit_withdrawal").equals("Deposit")) {
@@ -104,11 +106,11 @@ public class Withdrawal extends JFrame implements ActionListener {
                         return;
                     }
 
-                    connect.statement.executeUpdate("insert into bank values('"+pin+"', '"+date+"','Withdrawal', '"+amount+
+                    connect.statement.executeUpdate("insert into bank values('"+cardNo+"', '"+date+"','Withdrawal', '"+amount+
                             "', 'Dr')");
                     JOptionPane.showMessageDialog(null, "Rs. " + amount + " Debited Successfully");
                     setVisible(false);
-                    new main_Class(pin);
+                    new main_Class(cardNo,pin);
 
                 }
             } catch (Exception E) {
@@ -116,11 +118,11 @@ public class Withdrawal extends JFrame implements ActionListener {
             }
         } else if (e.getSource()==b2) {
             setVisible(false);
-            new main_Class(pin);
+            new main_Class(cardNo,pin);
         }
     }
 
     public static void main(String[] args) {
-        new Withdrawal("");
+        new Withdrawal("","");
     }
 }

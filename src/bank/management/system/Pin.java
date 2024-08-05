@@ -9,10 +9,11 @@ import java.awt.event.ActionListener;
     public class Pin extends JFrame implements ActionListener {
         JButton b1,b2;
         JPasswordField p1,p2;
-        String pin;
-        Pin(String pin){
+        String pin,cardNo;
+        Pin(String pin,String cardNo){
             super("Automated teller machine");
             this.pin =pin;
+            this.cardNo =cardNo;
 
             ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icon/atm.png"));
             Image i2 = i1.getImage().getScaledInstance(900,692,Image.SCALE_DEFAULT);
@@ -115,20 +116,20 @@ import java.awt.event.ActionListener;
                     }
 
                     Connect connect = new Connect();
-                    String q1 = "update bank set pin = '"+pin1+"' where pin = '"+pin+"'";
-                    String q2 = "update login set pin = '"+pin1+"' where pin = '"+pin+"'";
-                    String q3 = "update signupthree set pin = '"+pin1+"' where pin = '"+pin+"'";
+                    //String q1 = "update bank set pin = '"+pin1+"' where pin = '"+pin+"'";
+                    String query1 = "update login set pin = '"+pin1+"' where pin = '"+pin+"'";
+                    String query2 = "update signupthree set pin = '"+pin1+"' where pin = '"+pin+"'";
 
-                    connect.statement.executeUpdate(q1);
-                    connect.statement.executeUpdate(q2);
-                    connect.statement.executeUpdate(q3);
+                    //connect.statement.executeUpdate(q1);
+                    connect.statement.executeUpdate(query1);
+                    connect.statement.executeUpdate(query2);
 
                     JOptionPane.showMessageDialog(null,"PIN changed successfully");
                     setVisible(false);
-                    new main_Class(pin);
+                    new main_Class(cardNo,pin);
 
                 } else if (e.getSource()==b2) {
-                    new main_Class(pin);
+                    new main_Class(cardNo,pin);
                     setVisible(false);
                 }
 
@@ -140,6 +141,6 @@ import java.awt.event.ActionListener;
         }
 
         public static void main(String[] args) {
-            new Pin("");
+            new Pin("","");
         }
     }

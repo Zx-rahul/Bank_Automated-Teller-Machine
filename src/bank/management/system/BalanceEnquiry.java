@@ -8,11 +8,12 @@ import java.sql.ResultSet;
 
 public class BalanceEnquiry extends JFrame implements ActionListener {
 
-    String pin;
+    String pin, cardNo;
     JLabel label2;
     JButton b1;
-    BalanceEnquiry(String pin){
+    BalanceEnquiry(String cardNo,String pin){
         this.pin =pin;
+        this.cardNo =cardNo;
 
         ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icon/atm.png"));
         Image i2 = i1.getImage().getScaledInstance(900,692,Image.SCALE_DEFAULT);
@@ -50,7 +51,8 @@ public class BalanceEnquiry extends JFrame implements ActionListener {
         int balance =0;
         try{
             Connect connect = new Connect();
-            ResultSet resultSet = connect.statement.executeQuery("Select * from bank where pin = '"+pin+"'");
+            ResultSet resultSet = connect.statement.executeQuery("Select * from bank where card_number = '"+this.cardNo+
+                    "'");
             while (resultSet.next()){
                 if (resultSet.getString("deposit_withdrawal").equals("Deposit")){
                     balance += Integer.parseInt(resultSet.getString("amount"));
@@ -74,10 +76,10 @@ public class BalanceEnquiry extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         setVisible(false);
-        new main_Class(pin);
+        new main_Class(cardNo,pin);
     }
 
     public static void main(String[] args) {
-        new BalanceEnquiry("");
+        new BalanceEnquiry("","");
     }
 }

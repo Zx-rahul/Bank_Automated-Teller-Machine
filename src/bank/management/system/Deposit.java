@@ -8,15 +8,13 @@ import javax.swing.text.DocumentFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.InputMethodEvent;
-import java.awt.event.KeyEvent;
 import java.util.Date;
 
 public class Deposit extends JFrame implements ActionListener {
-    String pin;
+    String cardNo,pin;
     NumberRestrictedTextField textRupees;
     JButton deposit, cancel;
-    Deposit(String pin){
+    Deposit(String cardNo,String pin){
 
         super("Automated teller machine");
         Color controller;//background controller
@@ -26,6 +24,7 @@ public class Deposit extends JFrame implements ActionListener {
         int b=controller.getBlue();
 
         this.pin = pin;
+        this.cardNo = cardNo;
 
         ImageIcon image1 = new ImageIcon(ClassLoader.getSystemResource("icon/atm.png"));
         Image image2 = image1.getImage().getScaledInstance(900,692,Image.SCALE_DEFAULT);
@@ -93,14 +92,14 @@ public class Deposit extends JFrame implements ActionListener {
                     textRupees.setText("");  // Clear the field if the value is invalid
                 } else {
                     Connect connect = new Connect();
-                    connect.statement.executeUpdate("insert into bank values('"+pin+"', '"+date+"','Deposit', '"+amount+"', 'Cr')");
+                    connect.statement.executeUpdate("insert into bank values('"+ cardNo +"', '"+date+"','Deposit', '"+amount+"', 'Cr')");
                     JOptionPane.showMessageDialog(null,"Rs. "+amount+" Deposited Successfully");
                     setVisible(false);
-                    new main_Class(pin);
+                    new main_Class(cardNo,pin);
                 }
             }else if (e.getSource()== cancel){
                 setVisible(false);
-                new main_Class(pin);
+                new main_Class(cardNo,pin);
             }
         }catch (Exception E){
             E.printStackTrace();
@@ -109,7 +108,7 @@ public class Deposit extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        new Deposit("");
+        new Deposit("","");
     }
 }
 
