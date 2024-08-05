@@ -12,11 +12,11 @@ public class FastCash extends JFrame implements ActionListener {
     JButton b1,b2,b3,b4,b5,b6,b7;
     String pin,cardNo;
     int size;
-    FastCash(String pin,String cardNo){
+    FastCash(String cardNo, String pin){
         super("Automated teller machine");
 
-        this.cardNo=cardNo;
-        this.pin =pin;
+        this.cardNo = cardNo;
+        this.pin = pin;
 
         ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icon/atm.png"));
         Image i2 = i1.getImage().getScaledInstance(900,692,Image.SCALE_DEFAULT);
